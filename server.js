@@ -1,22 +1,26 @@
-var http = require('http');
-var finalHandler = require('finalhandler');
-var queryString = require('querystring');
-var Router = require('router');
-var bodyParser   = require('body-parser');
 const fs = require('fs');
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
-fs.readFile("incomedata.json", 'utf8', (err, data) => {
+fs.readFile("data.json", 'utf8', (err, data) => {
     if (err) throw err;
     data = JSON.parse(data);
 });
 
-var age = {};
-var sex = {};
-var race = {};
-var occupation = {};
+mongoose.connect('mongodb://localhost/data', { useNewUrlParser: true })
 
-http.createServer(function (request, response) {
-    myRouter(request, response, finalHandler(request, response))
-  }).listen(4001);
+const app = express()
 
-myRouter.get('/age');
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+
+const mainRoutes = require('./routes/main')
+
+app.use(mainRoutes)
+
+app.listen(5000, () => {
+  console.log('Node.js listening on port ' + 2000)
+})

@@ -1,5 +1,9 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import data from "../data.json"
+import * as tf from '@tensorflow/tfjs';
+import TensorModel from "./TensorModel"
+
 
 const SimpleForm = (props) => {
     const { handleSubmit, pristine, reset, submitting } = props

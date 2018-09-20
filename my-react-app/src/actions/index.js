@@ -1,12 +1,11 @@
-import axios from "axios";
-
-const ROOT_URL = `http://localhost:4001`;
+import data from "../data.json"
 
 export const FETCH_DATA = "FETCH_DATA";
 
 export function fetchData(){
-    const request = axios.get(ROOT_URL);
-    console.log('Request', request);
+    const request = JSON.stringify(data);
+
+    console.log('Request', data);
 
     return {
         type: FETCH_DATA,
